@@ -1,0 +1,2 @@
+front_end:usb_cam
+-DCATKIN_DEVEL_PREFIX=/home/lsy/code/LSY-SLAM-ws/devel -DCMAKE_INSTALL_PREFIX=/home/lsy/code/LSY-SLAM-ws/install -G Unix Makefiles

@@ -1,0 +1,8 @@
+prefix=/home/lsy/code/LSY-SLAM-ws/devel
+
+Name: front_end
+Description: Description of front_end
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
