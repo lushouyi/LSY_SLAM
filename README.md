@@ -28,7 +28,7 @@ Clone the repository and catkin_make:
 ```
 
 ## 3. Run
-Open three terminals, launch the vins_estimator , rviz and play the bag file respectively. Take MH_01 for example
+Open three terminals, launch the front_end , rviz and play the bag file respectively. Take MH_01 for example
 ```
     roslaunch front_end euroc.launch 
     rviz
