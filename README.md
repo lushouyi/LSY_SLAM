@@ -18,7 +18,7 @@ additional ROS pacakge
 Follow [Ceres Installation](http://ceres-solver.org/installation.html), remember to **make install**.
 (Our testing environment: Ubuntu 18.04, ROS Melodic, OpenCV 3.2.1, Eigen 3.3.3) 
 
-## 2. Build VINS-Mono on ROS
+## 2. Build LSY_SLAM on ROS
 Clone the repository and catkin_make:
 ```
     git clone https://github.com/lushouyi/LSY_SLAM.git
