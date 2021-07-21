@@ -21,10 +21,10 @@ Follow [Ceres Installation](http://ceres-solver.org/installation.html), remember
 ## 2. Build VINS-Mono on ROS
 Clone the repository and catkin_make:
 ```
-    cd ~/catkin_ws
-    https://github.com/lushouyi/LSY_SLAM.git
+    git clone https://github.com/lushouyi/LSY_SLAM.git
+    cd LSY_SLAM
     catkin_make
-    source ~/catkin_ws/devel/setup.bash
+    source ~/devel/setup.bash
 ```
 
 ## 3. Run
