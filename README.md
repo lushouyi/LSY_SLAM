@@ -21,9 +21,8 @@ Follow [Ceres Installation](http://ceres-solver.org/installation.html), remember
 ## 2. Build VINS-Mono on ROS
 Clone the repository and catkin_make:
 ```
-    cd ~/catkin_ws/src
-    git clone https://github.com/HKUST-Aerial-Robotics/VINS-Mono.git
-    cd ../
+    cd ~/catkin_ws
+    https://github.com/lushouyi/LSY_SLAM.git
     catkin_make
     source ~/catkin_ws/devel/setup.bash
 ```
