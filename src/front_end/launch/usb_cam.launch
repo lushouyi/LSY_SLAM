@@ -1,0 +1,9 @@
+<launch>
+    <include file = "$(find usb_cam)/launch/usb_cam-test.launch">
+    </include>
+
+    <arg name="config_path" default = "$(find front_end)/../../config/usb_cam.yaml" />
+    <node name="front_end" pkg="front_end" type="front_end" output="screen">
+        <param name="config_file" type="string" value="$(arg config_path)" />
+    </node>
+</launch>

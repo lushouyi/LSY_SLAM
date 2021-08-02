@@ -12,6 +12,9 @@ std::string IMU_TOPIC;
 int MAX_CNT;
 int MIN_DIST;
 cv::Mat K;
+int F_THRESHOLD;
+double RANSAC_THRESHOLD;
+cv::Mat extrinsicRotation;
 std::vector<float> distortion_coeffs(4); //指定容器的个数
 
 template<class T>
@@ -55,6 +58,8 @@ void readParameters(ros::NodeHandle &n)
     fsSettings["distorrion_parameters"][1] >> distortion_coeffs[1];
     fsSettings["distorrion_parameters"][2] >> distortion_coeffs[2];
     fsSettings["distorrion_parameters"][3] >> distortion_coeffs[3];
-
+    fsSettings["f_threshold"] >> F_THRESHOLD;
+    fsSettings["ransac_threshold"] >> RANSAC_THRESHOLD;
+    fsSettings["extrinsicRotation"] >> extrinsicRotation;
     fsSettings.release();
 }

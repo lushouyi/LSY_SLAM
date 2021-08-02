@@ -8,8 +8,11 @@
 #include "optical_flow_tracker.h"
 #include "parameters.h"
 
-ros::Publisher pub_image;
+ros::Publisher pub_image, pub_feature;
 OpticalFlowTracker optical_flow_data;
+double last_imu_t = 0;
+
+
 void img_callback(const sensor_msgs::ImageConstPtr &img_msg)
 {
 //********************ros message -> cv::Mat*********************
@@ -44,8 +47,8 @@ void img_callback(const sensor_msgs::ImageConstPtr &img_msg)
 
             feature_points->points.push_back(p);
             id_of_point.values.push_back(ids[i]);
-            u_of_point.values.push_back(un_pts[i].x);
-            v_of_point.values.push_back(un_pts[i].y);
+            u_of_point.values.push_back(cur_pts[i].x);
+            v_of_point.values.push_back(cur_pts[i].y);
         }
     }
 
@@ -53,7 +56,9 @@ void img_callback(const sensor_msgs::ImageConstPtr &img_msg)
     feature_points->channels.push_back(u_of_point);
     feature_points->channels.push_back(v_of_point);
 
-//******************往图像上画提取的特征点***************************
+    pub_feature.publish(feature_points);
+
+//******************往图像上画提取的特征点,红色为跟踪稳定的点，蓝色为跟踪不稳定的点***************************
     ptr = cv_bridge::cvtColor(ptr, sensor_msgs::image_encodings::BGR8);
     cv::Mat show_img = ptr->image;
     cv::cvtColor(raw_img, show_img, CV_GRAY2RGB);
@@ -62,9 +67,20 @@ void img_callback(const sensor_msgs::ImageConstPtr &img_msg)
         float track_intensity = std::min(1.0, 1.0 * optical_flow_data.track_cnt[i] / TRACK_INTEN);
         cv::circle(show_img, optical_flow_data.cur_pts[i], 2, cv::Scalar(255 * (1 - track_intensity), 0, 255 * track_intensity), 2);
     }
-    cv::imshow("vis", show_img);
-    cv::waitKey(5);
+
     pub_image.publish(ptr->toImageMsg());
+}
+
+void imu_callback(const sensor_msgs::ImuConstPtr &imu_msg)
+{
+    if(imu_msg->header.stamp.toSec() <= last_imu_t)
+    {
+        ROS_WARN("imu message in disorder!");
+        return;
+    }
+
+    last_imu_t = imu_msg->header.stamp.toSec();
+    optical_flow_data.imu_buf.push_back(imu_msg);
 }
 
 int main(int argc, char **argv)
@@ -75,7 +91,9 @@ int main(int argc, char **argv)
     readParameters(n);
 
     ros::Subscriber sub_img = n.subscribe(IMAGE_TOPIC, 100, img_callback);
+    ros::Subscriber sub_imu = n.subscribe(IMU_TOPIC, 2000, imu_callback);
     pub_image = n.advertise<sensor_msgs::Image>("usb_cam_raw_image", 1000);
+    pub_feature = n.advertise<sensor_msgs::PointCloud>("feature_points", 1000);
 
     ros::spin();
     return 0;

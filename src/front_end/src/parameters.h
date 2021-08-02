@@ -19,6 +19,9 @@ extern int MIN_DIST;
 extern cv::Mat K;
 extern std::vector<float> distortion_coeffs;
 extern int TRACK_INTEN;
+extern int F_THRESHOLD;
+extern double RANSAC_THRESHOLD;
+extern cv::Mat extrinsicRotation;
 void readParameters(ros::NodeHandle &n);
 
 

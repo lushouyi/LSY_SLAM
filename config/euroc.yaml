@@ -1,4 +1,4 @@
-%YAML:1.0  //用cv::FileStorage读取YAML文件必须加这个
+%YAML:1.0  #用cv::FileStorage读取YAML文件必须加这个
 
 imu_topic: "/imu0"
 image_topic: "/cam0/image_raw"
@@ -11,3 +11,14 @@ intrinsics: [4.616e+02, 4.603e+02, 3.630e+02, 2.481e+02]
 max_cut: 150
 min_dist: 30
 track_intensity: 20
+f_threshold: 1.0
+ransac_threshold: 0.00000002
+
+#外参旋转矩阵：camera->IMU
+extrinsicRotation: !!opencv-matrix
+  rows: 3
+  cols: 3
+  dt: d
+  data: [0.0148655429818, -0.999880929698, 0.00414029679422,
+         0.999557249008, 0.0149672133247, 0.025715529948,
+         -0.0257744366974, 0.00375618835797, 0.999660727178]

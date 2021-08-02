@@ -1,0 +1,13 @@
+%YAML:1.0 //所有句子必须顶格写
+
+imu_topic: "/imu0"
+image_topic: "/usb_cam/image_raw"
+
+image_width: 1920
+image_height: 1080
+distorrion_parameters: [-5.720e-01, 3.490e-01, 0.001, 0.001]
+intrinsics: [1.9637e+03, 9.747e+02, 1.9647e+03, 4.991e+02]
+
+max_cut: 150
+min_dist: 30
+track_intensity: 20
